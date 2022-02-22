@@ -1,0 +1,43 @@
+{
+    "name": "clarkwinkelmann/flarum-ext-jwt-cookie-login",
+    "description": "Stateless login for Flarum through JWT cookie",
+    "keywords": [
+        "flarum",
+        "jwt",
+        "firebase"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": "^1.2",
+        "firebase/php-jwt": "^6.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "authors": [
+        {
+            "name": "Clark Winkelmann",
+            "homepage": "https://clarkwinkelmann.com/",
+            "email": "clark.winkelmann@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/clarkwinkelmann/flarum-ext-jwt-cookie-login"
+    },
+    "autoload": {
+        "psr-4": {
+            "ClarkWinkelmann\\JWTCookieLogin\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "JWT Cookie Login",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-cookie",
+                "backgroundColor": "#684ba6",
+                "color": "#fff"
+            }
+        }
+    }
+}

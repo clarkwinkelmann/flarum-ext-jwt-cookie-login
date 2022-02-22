@@ -1,0 +1,22 @@
+clarkwinkelmann-jwt-cookie-login:
+    admin:
+        settings:
+            cookieName: Cookie Name
+            audience: JWT Audience / Firebase Project ID
+            audienceHelp: Validates the <code>aud</code> attribute of the token. Optional when not using Firebase
+            publicKey: Public Key
+            publicKeyHelp: Leave Empty to use Google Firebase keys
+            publicKeyAlgorithm: Public Key Algorithm
+            publicKeyAlgorithmHelp: 'Only required with Public Key. Example: RS256'
+            usernameTemplate: Username Template
+            usernameTemplateHelp: Use <code>{sub}</code> syntax to use an attribute from the JWT
+            emailTemplate: Username Template
+            emailTemplateHelp: Use <code>{sub}</code> syntax to use an attribute from the JWT
+            registrationHook: Registration Hook Endpoint
+            registrationHookHelp: >
+                A fully qualified URL that will be hit with a POST request when a user visits the forum for the first time.
+                The request should return a JSON:API payload that will be used to create the new user in Flarum.
+                Use <code>{sub}</code> syntax to use an attribute from the JWT in the URL.
+                The complete JWT will be passed in the <code>Authorization</code> header.
+                Username and Email are optional if a template value is configured.
+            logoutRedirect: Logout Redirect URL
