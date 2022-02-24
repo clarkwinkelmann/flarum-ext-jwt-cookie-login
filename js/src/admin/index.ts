@@ -30,19 +30,25 @@ app.initializers.add('jwt-cookie-login', () => {
             setting: 'jwt-cookie-login.usernameTemplate',
             type: 'text',
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.usernameTemplate'),
-            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.usernameTemplateHelp'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.usernameTemplateHelp', {
+                sub: '{sub}',
+            }),
         })
         .registerSetting({
             setting: 'jwt-cookie-login.emailTemplate',
             type: 'text',
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.emailTemplate'),
-            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.emailTemplateHelp'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.emailTemplateHelp', {
+                sub: '{sub}',
+            }),
         })
         .registerSetting({
             setting: 'jwt-cookie-login.registrationHook',
             type: 'text',
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.registrationHook'),
-            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.registrationHookHelp'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.registrationHookHelp', {
+                sub: '{sub}',
+            }),
         })
         .registerSetting({
             setting: 'jwt-cookie-login.logoutRedirect',

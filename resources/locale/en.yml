@@ -10,7 +10,7 @@ clarkwinkelmann-jwt-cookie-login:
             publicKeyAlgorithmHelp: 'Only required with Public Key. Example: RS256'
             usernameTemplate: Username Template
             usernameTemplateHelp: Use <code>{sub}</code> syntax to use an attribute from the JWT
-            emailTemplate: Username Template
+            emailTemplate: Email Template
             emailTemplateHelp: Use <code>{sub}</code> syntax to use an attribute from the JWT
             registrationHook: Registration Hook Endpoint
             registrationHookHelp: >
