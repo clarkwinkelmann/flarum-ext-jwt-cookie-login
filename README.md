@@ -18,6 +18,9 @@ By default, all accounts will be automatically enabled. You can change this beha
 Currently, the Flarum user with ID 1 is hard-coded as the actor that creates new users during registration.
 Make sure the user with Flarum ID 1 exists and is an administrator.
 
+The Symfony session object and cookie are not used for stateless authentication, however the cookie session is kept because Flarum and some extensions cannot work without it.
+This session object is not invalidated during "login" and "logout" of the stateless JWT authentication, so there could be issues with extensions that rely on that object for other purposes than validation messages.
+
 ## Installation
 
     composer require clarkwinkelmann/flarum-ext-jwt-cookie-login
