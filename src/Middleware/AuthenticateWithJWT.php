@@ -94,9 +94,17 @@ class AuthenticateWithJWT implements MiddlewareInterface
         ];
 
         if ($registrationHook = $this->settings->get('jwt-cookie-login.registrationHook')) {
+            $authorization = $this->settings->get('jwt-cookie-login.authorizationHeader');
+
             $response = $this->client->post($this->replaceStringParameters($registrationHook, $payload), [
                 'headers' => [
-                    'Authorization' => 'Token ' . $jwt,
+                    'Authorization' => $authorization ?: ('Token ' . $jwt),
+                ],
+                'json' => [
+                    'data' => [
+                        'type' => 'users',
+                        'id' => $payload->sub,
+                    ],
                 ],
             ]);
 
@@ -120,8 +128,7 @@ class AuthenticateWithJWT implements MiddlewareInterface
             $registerPayload['attributes']['email'] = $this->replaceStringParameters($emailTemplate, $payload);
         }
 
-        // TODO: make user configurable
-        $actor = User::query()->where('id', 1)->firstOrFail();
+        $actor = User::query()->where('id', $this->settings->get('jwt-cookie-login.actorId') ?: 1)->firstOrFail();
 
         /**
          * @var $bus Dispatcher

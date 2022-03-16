@@ -6,17 +6,24 @@ This extension implements stateless JWT-based sessions in Flarum.
 
 Users are matched through the `jwt_subject` column in the database that is matched to the token's `sub` value.
 
-By default, tokens are validated using Firebase keys but custom keys can also be used.
+By default, tokens are validated using Google Firebase public keys (automatically retrieved and cached from Google servers) but custom keys can also be used.
 
 A callback hook can be defined to obtain default values for new users from an external API.
+
+The validity of the hook request can be checked via the `Authorization` header.
+It will contain `Token <JWT token>` by default, but can be customized to a hard-coded secret token via the admin settings.
+The custom header setting will be applied verbatim as the header value, without any added prefix (i.e., `Token ` is not added).
+
+The JWT subject ID for the hook call can be retrieved by using the replacement code `{uid}` as part of the hook URL, by reading the JWT in the `Authorization` header or by reading the `data.id` value in the hook JSON POST body.
 
 Users can be edited via their JWT Subject ID by using the `PATCH /api/jwt/users/<sub>` endpoint.
 It works exactly the same way as `PATCH /api/users/<id>`.
 
 By default, all accounts will be automatically enabled. You can change this behaviour by returning `"isEmailConfirmed": false` in the registration hook.
 
-Currently, the Flarum user with ID 1 is hard-coded as the actor that creates new users during registration.
-Make sure the user with Flarum ID 1 exists and is an administrator.
+An admin user is used internally to call the REST API that creates new Flarum users.
+By default, user with ID 1 will be used but this can be customized in the admin settings.
+The value must be the Flarum ID (MySQL auto-increment) and not the JWT subject ID.
 
 The Symfony session object and cookie are not used for stateless authentication, however the cookie session is kept because Flarum and some extensions cannot work without it.
 This session object is not invalidated during "login" and "logout" of the stateless JWT authentication, so there could be issues with extensions that rely on that object for other purposes than validation messages.

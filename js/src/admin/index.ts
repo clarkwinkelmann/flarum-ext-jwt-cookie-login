@@ -9,6 +9,13 @@ app.initializers.add('jwt-cookie-login', () => {
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.cookieName'),
         })
         .registerSetting({
+            setting: 'jwt-cookie-login.actorId',
+            type: 'text',
+            label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.actorId'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.actorIdHelp'),
+            placeholder: '1',
+        })
+        .registerSetting({
             setting: 'jwt-cookie-login.audience',
             type: 'text',
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.audience'),
@@ -49,6 +56,12 @@ app.initializers.add('jwt-cookie-login', () => {
             help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.registrationHookHelp', {
                 sub: '{sub}',
             }),
+        })
+        .registerSetting({
+            setting: 'jwt-cookie-login.authorizationHeader',
+            type: 'text',
+            label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.authorizationHeader'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.authorizationHeaderHelp'),
         })
         .registerSetting({
             setting: 'jwt-cookie-login.logoutRedirect',

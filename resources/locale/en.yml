@@ -2,6 +2,10 @@ clarkwinkelmann-jwt-cookie-login:
     admin:
         settings:
             cookieName: Cookie Name
+            actorId: Flarum User ID for administrative actions
+            actorIdHelp: >
+                This Flarum user will be used as the actor for the internal REST API request that creates new users.
+                It must be an admin user.
             audience: JWT Audience / Firebase Project ID
             audienceHelp: Validates the <code>aud</code> attribute of the token. Optional when not using Firebase
             publicKey: Public Key
@@ -19,4 +23,6 @@ clarkwinkelmann-jwt-cookie-login:
                 Use <code>{sub}</code> syntax to use an attribute from the JWT in the URL.
                 The complete JWT will be passed in the <code>Authorization</code> header.
                 Username and Email are optional if a template value is configured.
+            authorizationHeader: Custom Authorization header value
+            authorizationHeaderHelp: If this field is left empty, <code>Authorization</code> header will contain <code>Token <JWT token></code>.
             logoutRedirect: Logout Redirect URL
