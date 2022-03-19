@@ -10,16 +10,31 @@ By default, tokens are validated using Google Firebase public keys (automaticall
 
 A callback hook can be defined to obtain default values for new users from an external API.
 
+The JWT subject ID for the hook call can be retrieved by using the replacement code `{uid}` as part of the hook URL, by reading the JWT in the `Authorization` header or by reading the `data.id` value in the hook JSON POST body.
+
+The hook should return a [JSON:API](https://jsonapi.org/) compliant object describing the Flarum user attributes.
+These attributes will be passed internally to `POST /api/users` so any attribute added by an extension can also be provided.
+
+```json
+{
+  "data": {
+    "attributes": {
+      "username": "example",
+      "email": "example@app.tld"
+    }
+  }
+}
+```
+
 The validity of the hook request can be checked via the `Authorization` header.
 It will contain `Token <JWT token>` by default, but can be customized to a hard-coded secret token via the admin settings.
 The custom header setting will be applied verbatim as the header value, without any added prefix (i.e., `Token ` is not added).
 
-The JWT subject ID for the hook call can be retrieved by using the replacement code `{uid}` as part of the hook URL, by reading the JWT in the `Authorization` header or by reading the `data.id` value in the hook JSON POST body.
+Users can be edited via their JWT subject ID by using the `PATCH /api/jwt/users/<sub>` endpoint.
+It works exactly the same way as `PATCH /api/users/<id>` but takes the JWT subject ID instead of Flarum ID.
 
-Users can be edited via their JWT Subject ID by using the `PATCH /api/jwt/users/<sub>` endpoint.
-It works exactly the same way as `PATCH /api/users/<id>`.
-
-By default, all accounts will be automatically enabled. You can change this behaviour by returning `"isEmailConfirmed": false` in the registration hook.
+By default, all accounts will be automatically enabled.
+You can change this behaviour by returning `"isEmailConfirmed": false` attribute in the registration hook.
 
 An admin user is used internally to call the REST API that creates new Flarum users.
 By default, user with ID 1 will be used but this can be customized in the admin settings.
