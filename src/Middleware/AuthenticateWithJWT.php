@@ -96,7 +96,9 @@ class AuthenticateWithJWT implements MiddlewareInterface
         if ($registrationHook = $this->settings->get('jwt-cookie-login.registrationHook')) {
             $authorization = $this->settings->get('jwt-cookie-login.authorizationHeader');
 
-            $response = $this->client->post($this->replaceStringParameters($registrationHook, $payload), [
+            $hookUrl = $this->replaceStringParameters($registrationHook, $payload);
+
+            $response = $this->client->post($hookUrl, [
                 'headers' => [
                     'Authorization' => $authorization ?: ('Token ' . $jwt),
                 ],
@@ -108,9 +110,13 @@ class AuthenticateWithJWT implements MiddlewareInterface
                 ],
             ]);
 
+            $responseBody = $response->getBody()->getContents();
+
+            $this->logInDebugMode("Response of POST $hookUrl:" . PHP_EOL . $responseBody);
+
             $registerPayload = array_merge_recursive(
                 $registerPayload,
-                Arr::get(Utils::jsonDecode($response->getBody()->getContents(), true), 'data', [])
+                Arr::get(Utils::jsonDecode($responseBody, true), 'data', [])
             );
         }
 
@@ -129,6 +135,8 @@ class AuthenticateWithJWT implements MiddlewareInterface
         }
 
         $actor = User::query()->where('id', $this->settings->get('jwt-cookie-login.actorId') ?: 1)->firstOrFail();
+
+        $this->logInDebugMode("Performing internal request to POST /api/users with data:" . PHP_EOL . json_encode($registerPayload, JSON_PRETTY_PRINT));
 
         /**
          * @var $bus Dispatcher
