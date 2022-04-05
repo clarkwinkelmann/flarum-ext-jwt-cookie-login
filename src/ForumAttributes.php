@@ -16,8 +16,15 @@ class ForumAttributes
 
     public function __invoke(ForumSerializer $serializer): array
     {
+        if (!$serializer->getRequest()->getAttribute('jwtStatelessAuth')) {
+            return [];
+        }
+
+        $logoutRedirect = $this->settings->get('jwt-cookie-login.logoutRedirect');
+
         return [
-            'logoutRedirect' => $this->settings->get('jwt-cookie-login.logoutRedirect'),
+            // Use an explicit "false" value when URL is disabled because we'll use this value to know the logout field should be hidden
+            'logoutRedirect' => $logoutRedirect ?: false,
         ];
     }
 }

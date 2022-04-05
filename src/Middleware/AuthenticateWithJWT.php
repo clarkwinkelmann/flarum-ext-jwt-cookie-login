@@ -46,6 +46,7 @@ class AuthenticateWithJWT implements MiddlewareInterface
 
             $request = RequestUtil::withActor($request, $actor);
             $request = $request->withAttribute('bypassCsrfToken', true);
+            $request = $request->withAttribute('jwtStatelessAuth', true);
             // Removing session might break frontend
             //$request = $request->withoutAttribute('session');
         }

@@ -5,10 +5,12 @@ import SessionDropdown from 'flarum/forum/components/SessionDropdown';
 
 app.initializers.add('jwt-cookie-login', () => {
     extend(SessionDropdown.prototype, 'items', function (items) {
-        // TODO: only hide if in stateless JWT session
-        items.remove('logOut');
+        const href = app.forum.attribute<string | false>('logoutRedirect');
 
-        const href = app.forum.attribute('logoutRedirect');
+        // False is used to explicitly say the logout button should be hidden without any replacement
+        if (href || href === false) {
+            items.remove('logOut');
+        }
 
         if (href) {
             items.add('logOutLink', LinkButton.component({
