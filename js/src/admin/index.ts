@@ -34,6 +34,13 @@ app.initializers.add('jwt-cookie-login', () => {
             help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.publicKeyAlgorithmHelp'),
         })
         .registerSetting({
+            setting: 'jwt-cookie-login.expirationLeeway',
+            type: 'number',
+            label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.expirationLeeway'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.expirationLeewayHelp'),
+            placeholder: '0',
+        })
+        .registerSetting({
             setting: 'jwt-cookie-login.usernameTemplate',
             type: 'text',
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.usernameTemplate'),

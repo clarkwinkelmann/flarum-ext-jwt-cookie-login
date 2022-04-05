@@ -12,6 +12,11 @@ clarkwinkelmann-jwt-cookie-login:
             publicKeyHelp: Leave Empty to use Google Firebase keys
             publicKeyAlgorithm: Public Key Algorithm
             publicKeyAlgorithmHelp: 'Only required with Public Key. Example: RS256'
+            expirationLeeway: Expiration Leeway (seconds)
+            expirationLeewayHelp: >
+                How many additional seconds past JWT expiration should the session still start.
+                This value is only intended to be a few minutes at worst to account for clock skew times between servers.
+                However it can also be set to a much longer value if this is the only way to work around fixed short lifetimes of JWT from an external library.
             usernameTemplate: Username Template
             usernameTemplateHelp: Use <code>{sub}</code> syntax to use an attribute from the JWT
             emailTemplate: Email Template

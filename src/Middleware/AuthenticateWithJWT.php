@@ -65,6 +65,8 @@ class AuthenticateWithJWT implements MiddlewareInterface
             return null;
         }
 
+        JWT::$leeway = (int)$this->settings->get('jwt-cookie-login.expirationLeeway');
+
         try {
             $payload = JWT::decode($jwt, $this->keys());
         } catch (\Exception $exception) {
