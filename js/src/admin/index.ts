@@ -71,8 +71,22 @@ app.initializers.add('jwt-cookie-login', () => {
             help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.authorizationHeaderHelp'),
         })
         .registerSetting({
+            setting: 'jwt-cookie-login.hiddenIframe',
+            type: 'text',
+            label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.hiddenIframe'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.hiddenIframeHelp'),
+        })
+        .registerSetting({
+            setting: 'jwt-cookie-login.autoLoginDelay',
+            type: 'number',
+            label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.autoLoginDelay'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.autoLoginDelayHelp'),
+            placeholder: '2000',
+        })
+        .registerSetting({
             setting: 'jwt-cookie-login.logoutRedirect',
             type: 'text',
             label: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.logoutRedirect'),
+            help: app.translator.trans('clarkwinkelmann-jwt-cookie-login.admin.settings.logoutRedirectHelp'),
         });
 });

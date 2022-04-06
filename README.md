@@ -43,6 +43,37 @@ The value must be the Flarum ID (MySQL auto-increment) and not the JWT subject I
 The Symfony session object and cookie are not used for stateless authentication, however the cookie session is kept because Flarum and some extensions cannot work without it.
 This session object is not invalidated during "login" and "logout" of the stateless JWT authentication, so there could be issues with extensions that rely on that object for other purposes than validation messages.
 
+### Hidden Iframe
+
+The hidden iframe offers a way to refresh the cookie in the background and optionally to provide auto login.
+
+If the hidden iframe setting is set, the given URL will be loaded in a 0x0 iframe placed outside the browser viewport.
+
+The iframe can use [`window.postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to inform Flarum of a change in the session state.
+The message can be sent at any time and any number of times.
+You can use a loop repeatedly sending the current state if necessary.
+
+Flarum will check for a change in the reported state and prompt the user to refresh the page if it changes.
+
+If `{jwtSessionState: 'login'}` is sent while Flarum is logged out, Flarum will say the user has been automatically logged in and may refresh the page.
+
+If `{jwtSessionState: 'logout'}` is sent while Flarum is logged in, Flarum will say the session has expired and the user may refresh the page.
+
+If the time elapsed between Flarum boot and the `postMessage` is smaller than the configured "Auto Login Delay", the page will refresh without user interaction.
+
+Switching user without going through logout state is current not supported.
+
+Code example for the iframe:
+
+```js
+window.parent.postMessage({
+  jwtSessionState: 'login',
+}, 'https://myforum.mydomain.tld');
+```
+
+The last parameter should be set to the Flarum `origin`.
+`'*'` can also be used but isn't recommended.
+
 ## Installation
 
     composer require clarkwinkelmann/flarum-ext-jwt-cookie-login

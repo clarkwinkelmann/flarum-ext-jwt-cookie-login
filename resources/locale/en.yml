@@ -30,4 +30,21 @@ clarkwinkelmann-jwt-cookie-login:
                 Username and Email are optional if a template value is configured.
             authorizationHeader: Custom Authorization header value
             authorizationHeaderHelp: If this field is left empty, <code>Authorization</code> header will contain <code>Token <JWT token></code>.
+            hiddenIframe: Hidden Iframe URL
+            hiddenIframeHelp: >
+                This iframe will be loaded off-screen on all pages of the Flarum single page application.
+                It can be used to periodically refresh the cookie and can use browser messaging to trigger a page refresh for auto-login or auto-logout.
+                See README for documentation.
+            autoLoginDelay: Hidden Iframe Auto Login Delay (milliseconds)
+            autoLoginDelayHelp: >
+                During how many seconds the page is allowed to refresh without user interaction if the hidden iframe returns a logged in status.
+                Past that delay, the user will receive an alert to ask whether they want to refresh the page.
             logoutRedirect: Logout Redirect URL
+            logoutRedirectHelp: >
+                During a JWT stateless session, the Flarum logout link will be replaced with a link pointing to this URL.
+                If no value is set, the logout button will be hidden.
+    forum:
+        alert:
+            refresh: Refresh page
+            login: You have been connected automatically.
+            logout: Your session has expired.
