@@ -2,7 +2,7 @@
 
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/clarkwinkelmann/flarum-ext-jwt-cookie-login/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/clarkwinkelmann/flarum-ext-jwt-cookie-login.svg)](https://packagist.org/packages/clarkwinkelmann/flarum-ext-jwt-cookie-login) [![Total Downloads](https://img.shields.io/packagist/dt/clarkwinkelmann/flarum-ext-jwt-cookie-login.svg)](https://packagist.org/packages/clarkwinkelmann/flarum-ext-jwt-cookie-login) [![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/clarkwinkelmann)
 
-This extension implements stateless JWT-based sessions in Flarum.
+This extension implements quasi-stateless JWT-based sessions in Flarum.
 
 Users are matched through the `jwt_subject` column in the database that is matched to the token's `sub` value.
 
@@ -37,10 +37,10 @@ By default, all accounts will be automatically enabled.
 You can change this behaviour by returning `"isEmailConfirmed": false` attribute in the registration hook.
 
 An admin user is used internally to call the REST API that creates new Flarum users.
-By default, user with ID 1 will be used but this can be customized in the admin settings.
+By default, user with ID `1` will be used but this can be customized in the admin settings.
 The value must be the Flarum ID (MySQL auto-increment) and not the JWT subject ID.
 
-The Symfony session object and cookie are not used for stateless authentication, however the cookie session is kept because Flarum and some extensions cannot work without it.
+The original Flarum session object (Symfony session) and cookie are not used for stateless authentication, however the cookie session is kept because Flarum and some extensions cannot work without it.
 This session object is not invalidated during "login" and "logout" of the stateless JWT authentication, so there could be issues with extensions that rely on that object for other purposes than validation messages.
 
 ### Hidden Iframe
