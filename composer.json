@@ -23,7 +23,8 @@
         }
     ],
     "support": {
-        "source": "https://github.com/clarkwinkelmann/flarum-ext-jwt-cookie-login"
+        "source": "https://github.com/clarkwinkelmann/flarum-ext-jwt-cookie-login",
+        "forum": "https://discuss.flarum.org/d/30632"
     },
     "autoload": {
         "psr-4": {
