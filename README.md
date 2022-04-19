@@ -1,8 +1,13 @@
-# JWT Cookie Login
+# JSON Web Token Cookie Login
 
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/clarkwinkelmann/flarum-ext-jwt-cookie-login/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/clarkwinkelmann/flarum-ext-jwt-cookie-login.svg)](https://packagist.org/packages/clarkwinkelmann/flarum-ext-jwt-cookie-login) [![Total Downloads](https://img.shields.io/packagist/dt/clarkwinkelmann/flarum-ext-jwt-cookie-login.svg)](https://packagist.org/packages/clarkwinkelmann/flarum-ext-jwt-cookie-login) [![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/clarkwinkelmann)
 
 This extension implements quasi-stateless JWT-based sessions in Flarum.
+
+The use case for this extension is implementing global login with an external platform serving as the master.
+Your code is responsible for setting and updating the cookie, and Flarum will automatically connect and/or create users based on the content of the JWT.
+No example code is available for the master implementation.
+The information below should allow you to implement it in any programming language.
 
 Users are matched through the `jwt_subject` column in the database that is matched to the token's `sub` value.
 
