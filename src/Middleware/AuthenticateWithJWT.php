@@ -45,10 +45,18 @@ class AuthenticateWithJWT implements MiddlewareInterface
             $actor->updateLastSeen()->save();
 
             $request = RequestUtil::withActor($request, $actor);
-            $request = $request->withAttribute('bypassCsrfToken', true);
             $request = $request->withAttribute('jwtStatelessAuth', true);
-            // Removing session might break frontend
-            //$request = $request->withoutAttribute('session');
+
+            $session = $request->getAttribute('session');
+
+            // If this is the first authenticated request or if the actor changed, we want to clear the CSRF token
+            // so any window still open under the old user don't accidentally perform requests as the new user
+            if ($actor->jwt_subject !== $session->get('jwtLastSub')) {
+                $session->invalidate();
+                $session->regenerateToken();
+
+                $session->put('jwtLastSub', $actor->jwt_subject);
+            }
         }
 
         return $handler->handle($request);

@@ -14,6 +14,10 @@
         "guzzlehttp/guzzle": "^7.0",
         "ext-json": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "flarum/testing": "^1.0"
+    },
     "authors": [
         {
             "name": "Clark Winkelmann",
@@ -31,6 +35,11 @@
             "ClarkWinkelmann\\JWTCookieLogin\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ClarkWinkelmann\\JWTCookieLogin\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "flarum-extension": {
             "title": "JWT Cookie Login",
@@ -41,5 +50,17 @@
                 "color": "#fff"
             }
         }
+    },
+    "scripts": {
+        "test": [
+            "@test:integration"
+        ],
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/integration/setup.php"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:integration": "Runs all integration tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once."
     }
 }
